@@ -1,0 +1,42 @@
+<h1>Listing of All Products</h1>
+
+<% @title = "Display All Products" %>
+
+<p><%= @message%></p>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Product Name</th>
+      <th>Description</th>
+      <th>Category</th>
+      <th>Price</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @products.each do |product| %>
+      <tr>
+        <td><%= product.name %></td>
+        <td><%= product.description %></td>
+        <td><%= product.category.name %></td>
+        <td><%= product.pricing %></td> 
+        <td><%= link_to "Show", product_path(product.id) %></td>
+        <td><%= link_to "Edit", edit_product_path(product.id) %></td>
+        <td><a href= "/products/<%= product.id %>" data-method='delete'>Delete</a></td>       
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<div id="categories">
+  <% if @categories %>
+  <h3>Available Categories:</h3>
+  <% @categories.each { |value| %>
+      <p><%= value.name %><p> 
+    <% } end %>
+
+</div>
+<td><a href= "/products/new" >Create new product</a></td>
+<br>

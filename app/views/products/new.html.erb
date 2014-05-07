@@ -1,0 +1,34 @@
+<h1>New Product</h1>
+
+
+<p><%= @message%></p>
+<% if @explain
+	@explain.each do |message| %>
+      
+        <p><%= message %></p>
+              
+	<% end %>
+<% end %>
+<br>
+<% @title = "Add a Product" %>
+<p>Create a new product:</p>
+
+<form action="/products" method="post">
+	<input type="text" name="name" placeholder="Name"/><br/>
+	<input type="text" name="category" placeholder="Category"/><br/>
+	<textarea name="description" placeholder="Product Description"/></textarea><br/>
+	<input type="number" step="any" min="0" name="pricing" placeholder="Price"/><br/>
+	<%= tag(:input, :type => "hidden", :name => request_forgery_protection_token.to_s, :value => form_authenticity_token) %>
+	
+	<input type= "submit" value = "Create New Product" id="button" />
+</form>
+
+<div id="categories">
+	<h3>Available Categories:</h3>
+	<% @categories.each { |value| %>
+			<p><%= value.name %><p> 
+		<% } %>
+
+</div>
+
+<td><a href= "/products" >Home</a></td>

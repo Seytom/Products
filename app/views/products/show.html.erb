@@ -1,0 +1,30 @@
+<h1>Full Product Display</h1>
+
+<% @title = "Display All Information for Given Product" %>
+
+<p><%= @message%></p>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Category</th>
+      <th>Pricing</th>
+    </tr>
+  </thead>
+
+  <tbody>
+     <tr>
+        <td><%= @product['name'] %></td>
+        <td><%= @product.description %></td>
+        <td><%= @product.category.name %> </td>
+        <td><%= @product.pricing %></td> 
+        <td><%= link_to "Edit", edit_product_path(@product.id) %></td>
+        <td><a href= "/products" >Home</a></td>       
+      </tr>
+  </tbody>
+</table>
+<td><a href= "/products/new" >Create new product</a></td>
+
+<br>
