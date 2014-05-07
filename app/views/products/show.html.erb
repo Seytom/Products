@@ -10,7 +10,7 @@
       <th>Name</th>
       <th>Description</th>
       <th>Category</th>
-      <th>Pricing</th>
+      <th>Pricing</th>      
     </tr>
   </thead>
 
@@ -25,6 +25,25 @@
       </tr>
   </tbody>
 </table>
-<td><a href= "/products/new" >Create new product</a></td>
+<div id="comments">
+  <h3>Comments:</h3>
+  <% @product.comments.each { |value| %>
+    <div class="comment">
+      <p>On <%= value.updated_at %>, <%= value.commenter %> said:<p>        
+      <p><%= value.comment %><p> 
+    </div>
+    <% } %>
+<br><br>
+<form action="/products" method="post">
+  <input type="text" name="commenter" value="Author">
+  <input type="hidden" name="product_id" value="<%= @product.id %>"><br>
+    <% flash['product_id'] = @product.id %>
+  <textarea name="comment"></textarea><br>
+  <%= tag(:input, :type => "hidden", :name => request_forgery_protection_token.to_s, :value => form_authenticity_token) %>
+  <input type="submit" value="Post your comment">
+</form>
+<br><br>
+<a href= "/products/new" >Create new product</a>
+</div>
 
 <br>

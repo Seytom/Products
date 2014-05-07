@@ -20,7 +20,13 @@
 		Description:
 		<textarea name="description" value="<%= @product['description']%>"><%= @product['description']%></textarea><br/>
 		Category:
-		<input type="text" name="category" value="<%= @category %>"><br> 
+		<select name="category">
+		<% @categories.each { |value| %>
+			<option value="<%= value.name %>"><%= value.name %></option> 
+		<% } %>  
+			<option value=<%= @category %> selected> <%= @category %></option>
+		</select> <br/>
+		 
 		Price:
 		<input type="number" step="any" min="0" name="pricing" value="<%= @product['pricing']%>"/><br/>
 		<%= tag(:input, :type => "hidden", :name => request_forgery_protection_token.to_s, :value => form_authenticity_token) %>
@@ -29,12 +35,8 @@
 	</form>
 </div>
 
-<div id="categories">
-	<h3>Available Categories:</h3>
-	<% @categories.each { |value| %>
-			<p><%= value.name %><p> 
-		<% } %>
+
 <br><br>
 <a href= "/products" >Back to Dashboard</a>
-</div>
+
 

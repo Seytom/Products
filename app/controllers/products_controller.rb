@@ -21,20 +21,31 @@ class ProductsController < ApplicationController
 	end
 
 	def create
-		c = Category.find_by! name: params['category'].titlecase
-		a = Product.new(:name=>params['name'], :description=>params['description'], :pricing=>params['pricing'], :category_id=>c.id)
-		@categories = Category.all
-	    if a.save
-	      @message = "New product successfully created."
-	      @products = Product.all
-	      
-	      render "index"
-	    else
-	      @message = "New product not created." 
-	      @explain = a.errors.full_messages
-	      @products = Product.all
-	      render "new"
-        end
+		#Check to see if creating new comment
+		if params['comment']
+			Comment.new(:commenter=>params['commenter'], :comment=>params['comment'], :Product_id=>params['product_id']).save
+    		@products = Product.all
+    		redirect_to :controller=>'products', :action => 'show', :id => params['product_id']
+    		return
+    	end
+
+    	if params['category']
+			c = Category.find_by! name: params['category'].titlecase
+			a = Product.new(:name=>params['name'], :description=>params['description'], :pricing=>params['pricing'], :category_id=>c.id)
+			@categories = Category.all
+		    if a.save
+		      @message = "New product successfully created."
+		      
+		      		      
+		    else
+		      @message = "New product not created." 
+		      @explain = a.errors.full_messages
+		      @products = Product.all
+		      render "new"
+	        end
+	    end
+	    @products = Product.all
+	    render "index"
 	end
 
 	def update

@@ -3,6 +3,10 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 @import "bootstrap";
 
+body {
+	padding:5px;
+}
+
 #edit_prod {
 	text-align:left;
 	margin-left:15px;
@@ -12,3 +16,17 @@
 	text-align:left;
 	margin-left:15px;
 }
+
+#comments{
+	text-align:left;
+	margin-left:20px;
+}
+
+.comment{
+	border:solid teal 1px;
+	padding:5px;
+	width:250px;
+	display:inline-block;
+	margin-right:10px;
+}
+
