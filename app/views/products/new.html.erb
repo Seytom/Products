@@ -13,18 +13,21 @@
 <% @title = "Add a Product" %>
 <p>Create a new product:</p>
 
-<form action="/products" method="post">
-	<input type="text" name="name" placeholder="Name"/><br/>
-	<select name="category" placeholder="category">
-		<% @categories.each { |value| %>
-			<option value="<%= value.name %>"><%= value.name %></option> 
-		<% } %>  
-	</select> <br/>	
-	<textarea name="description" placeholder="Product Description"/></textarea><br/>
-	<input type="number" step="any" min="0" name="pricing" placeholder="Price"/><br/>
+
+<%= form_for @product, url: {action: "create"} do |f| %>
+	<%= f.label :name, "Product name" %>
+	<%= f.text_field :name %><br/>
+	<%= f.label :category_id, "Product category" %>
+	<%= f.collection_select(:category_id, Category.all, :id, :name) %>
+	
+		<br/>	
+	<%= f.label :description, "Description" %>
+	<%= f.text_area :description, size: "60x12" %><br/>
+	<%= f.label :pricing, "Price" %>
+	<%= f.number_field :pricing, options: {:min =>0, :step=>'any'} %><br/>
 	<%= tag(:input, :type => "hidden", :name => request_forgery_protection_token.to_s, :value => form_authenticity_token) %>
 	
-	<input type= "submit" value = "Create New Product" id="button" />
-</form>
+	<%= f.submit "Create" %>
+<% end %>
 
 <td><a href= "/products" >Home</a></td>

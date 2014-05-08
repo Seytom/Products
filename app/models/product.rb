@@ -1,5 +1,6 @@
 class Product < ActiveRecord::Base
-	validates :category, :presence => true
+	validates :category_id, :presence => true
+	
 	
 	belongs_to :category
 	has_many :comments

@@ -10,29 +10,28 @@
 	<% end %>
 <% end %>
 <br>
-<% @title = "Edit Product" %>
 
 <div id="edit_prod">
-	<form action="/products/<%= @product.id %>" method="post">
-		<input type="hidden" name="_method" value="put">
-		Product name:
-		<input type="text" name="name" value="<%= @product['name'] %>"/><br/>
-		Description:
-		<textarea name="description" value="<%= @product['description']%>"><%= @product['description']%></textarea><br/>
-		Category:
-		<select name="category">
-		<% @categories.each { |value| %>
-			<option value="<%= value.name %>"><%= value.name %></option> 
-		<% } %>  
-			<option value=<%= @category %> selected> <%= @category %></option>
-		</select> <br/>
-		 
-		Price:
-		<input type="number" step="any" min="0" name="pricing" value="<%= @product['pricing']%>"/><br/>
-		<%= tag(:input, :type => "hidden", :name => request_forgery_protection_token.to_s, :value => form_authenticity_token) %>
-		
-		<input type= "submit" value = "Update Record" id="button" />
-	</form>
+
+
+	<%= form_for @product, url: {action: "update"} do |f| %>
+	<%= f.label :name, "Product name" %>
+	<%= f.text_field :name %><br/>
+	<%= f.label :category_id, "Product category" %>
+	<%= f.collection_select(:category_id, Category.all, :id, :name) %>
+	
+		<br/>	
+	<%= f.label :description, "Description" %>
+	<%= f.text_area :description, size: "60x12" %><br/>
+	<%= f.label :pricing, "Price" %>
+	<%= f.number_field :pricing, options: {:min =>0, :step=>'any'} %><br/>
+	<%= tag(:input, :type => "hidden", :name => request_forgery_protection_token.to_s, :value => form_authenticity_token) %>
+	
+	<%= f.submit "Update record" %>
+<% end %>
+
+
+	
 </div>
 
 
